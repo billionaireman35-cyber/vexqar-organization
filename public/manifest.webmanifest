@@ -1,0 +1,23 @@
+{
+  "name": "VEXQAR Organization",
+  "short_name": "VEXQAR",
+  "description": "VEXQAR Organization — protocol, infrastructure and ecosystem portal.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0a0a0f",
+  "icons": [
+    {
+      "src": "/pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
