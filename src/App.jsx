@@ -10,6 +10,7 @@ import {
   Cpu,
   FileText,
   Globe2,
+  Info,
   LayoutDashboard,
   Menu,
   Network,
@@ -107,16 +108,23 @@ function Sidebar({ open, onClose }) {
             <span>{label}</span>
           </NavLink>
         ))}
+
+        <div className="nav-label nav-label-information">INFORMATION</div>
+        <NavLink
+          to="/about"
+          end
+          className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          onClick={onClose}
+        >
+          <Info size={17} strokeWidth={1.8} />
+          <span>About VEXQAR</span>
+        </NavLink>
       </nav>
 
       <div className="sidebar-footer">
         <div className="company-signature">
           <span>POWERED BY</span>
           <strong>GOLDX TECHNOLOGIES LTD</strong>
-        </div>
-        <div className="network-indicator">
-          <span className="live-dot" />
-          <span>Polygon Mainnet</span>
         </div>
         <a
           className="external-link"
@@ -1542,6 +1550,227 @@ function ApplicationsPage() {
   )
 }
 
+
+function AboutPage() {
+  const developmentLinks = [
+    {
+      label: 'GitHub',
+      description: 'VEXQAR Organization website source and public development history.',
+      href: 'https://github.com/billionaireman35-cyber/vexqar-organization',
+    },
+    {
+      label: 'GitHub Contracts',
+      description: 'Public source for the VEXQAR protocol contracts and deployment infrastructure.',
+      href: 'https://github.com/billionaireman35-cyber/vexqar-contracts',
+    },
+    {
+      label: 'GitHub Issues',
+      description: 'Public technical issues, improvements and development discussions.',
+      href: 'https://github.com/billionaireman35-cyber/vexqar-organization/issues',
+    },
+    {
+      label: 'GitHub Discussions',
+      description: 'Open community and ecosystem conversations around VEXQAR.',
+      href: 'https://github.com/billionaireman35-cyber/vexqar-organization/discussions',
+    },
+    {
+      label: 'PolygonScan',
+      description: 'Verified VXR contract and public on-chain transaction history.',
+      href: 'https://polygonscan.com/address/0x9701053faF5E6fE5fC27662002Da4b0017026067',
+    },
+  ]
+
+  const protocolFacts = [
+    ['Asset', 'VEXQAR (VXR)'],
+    ['Total supply', '121,000,000 VXR'],
+    ['Decimals', '18'],
+    ['Network', 'Polygon Mainnet'],
+    ['Chain ID', '137'],
+    ['Contract', '0x9701053f...17026067'],
+  ]
+
+  return (
+    <section className="about-page">
+      <div className="about-hero">
+        <div className="about-hero-copy">
+          <span className="eyebrow">ABOUT VEXQAR</span>
+          <h1>
+            An open organization building
+            <span> protocol infrastructure.</span>
+          </h1>
+          <p>
+            VEXQAR Organization develops the economic, settlement, asset and
+            application infrastructure surrounding VEXQAR (VXR), with an
+            emphasis on transparent development and explicit protocol rules.
+          </p>
+        </div>
+
+        <div className="about-hero-mark">
+          <img src="/brand/vexqar-mark.svg" alt="VEXQAR" />
+          <span>VEXQAR ORGANIZATION</span>
+        </div>
+      </div>
+
+      <div className="about-grid">
+        <article className="about-panel about-organization">
+          <span className="eyebrow">ORGANIZATION</span>
+          <h2>VEXQAR Organization</h2>
+          <p>
+            VEXQAR Organization is the public-facing organization around the
+            VEXQAR ecosystem. It coordinates protocol development, public
+            interfaces, infrastructure and ecosystem expansion.
+          </p>
+
+          <div className="about-principles">
+            <div>
+              <strong>GOLDX TECHNOLOGIES LTD</strong>
+              <span>Parent and authorizing organization</span>
+            </div>
+            <div>
+              <strong>TEAM</strong>
+              <span>Builders responsible for protocol, infrastructure and ecosystem development</span>
+            </div>
+            <div>
+              <strong>CONTRIBUTORS</strong>
+              <span>Developers, researchers, designers and other participants who contribute to the ecosystem</span>
+            </div>
+          </div>
+        </article>
+
+        <article className="about-panel about-community">
+          <span className="eyebrow">COMMUNITY</span>
+          <h2>Built beyond a single interface.</h2>
+          <p>
+            VEXQAR is intended to support users, builders, contributors and
+            ecosystem participants. Community participation can extend through
+            public repositories, technical discussions, applications and
+            future ecosystem infrastructure.
+          </p>
+
+          <div className="about-community-points">
+            <div>
+              <strong>USERS</strong>
+              <span>People interacting with VEXQAR assets and applications.</span>
+            </div>
+            <div>
+              <strong>BUILDERS</strong>
+              <span>Developers creating tools and applications around the protocol.</span>
+            </div>
+            <div>
+              <strong>CONTRIBUTORS</strong>
+              <span>Participants improving the technical and public ecosystem.</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <section className="about-section">
+        <div className="about-section-heading">
+          <div>
+            <span className="eyebrow">VXR PROTOCOL</span>
+            <h2>The monetary core.</h2>
+          </div>
+          <p>
+            VXR is the native economic asset of VEXQAR. Its core monetary
+            rules are explicit and designed to remain independently inspectable.
+          </p>
+        </div>
+
+        <div className="about-facts">
+          {protocolFacts.map(([label, value]) => (
+            <div key={label}>
+              <span>{label}</span>
+              <strong>{value}</strong>
+            </div>
+          ))}
+        </div>
+
+        <div className="about-note">
+          <strong>Core properties</strong>
+          <p>
+            Fixed 121,000,000 VXR supply, no post-genesis minting, no burn
+            mechanism, no transfer tax or reflection, no blacklist or seizure
+            mechanism, no discretionary monetary owner control and no
+            upgradeability of the core token.
+          </p>
+        </div>
+      </section>
+
+      <section className="about-section">
+        <div className="about-section-heading">
+          <div>
+            <span className="eyebrow">OPEN DEVELOPMENT</span>
+            <h2>Inspect the work.</h2>
+          </div>
+          <p>
+            VEXQAR uses public repositories and verified on-chain contracts so
+            the technology can be inspected directly.
+          </p>
+        </div>
+
+        <div className="about-links">
+          {developmentLinks.map((link) => (
+            <a
+              key={link.href}
+              className="about-link"
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div>
+                <strong>{link.label}</strong>
+                <span>{link.description}</span>
+              </div>
+              <ArrowUpRight size={17} />
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="about-section about-contact">
+        <div className="about-section-heading">
+          <div>
+            <span className="eyebrow">CONTACT</span>
+            <h2>Official channels.</h2>
+          </div>
+          <p>
+            Organization, protocol and ecosystem enquiries can be directed
+            through the official channels below.
+          </p>
+        </div>
+
+        <div className="about-contact-grid">
+          <a
+            href="mailto:vexqar-organization@protonmail.com"
+            className="about-contact-card"
+          >
+            <span>VEXQAR ORGANIZATION</span>
+            <strong>vexqar-organization@protonmail.com</strong>
+          </a>
+
+          <a
+            href="mailto:Goldxtechnologies@gmail.com"
+            className="about-contact-card"
+          >
+            <span>GOLDX TECHNOLOGIES LTD</span>
+            <strong>Goldxtechnologies@gmail.com</strong>
+          </a>
+        </div>
+      </section>
+
+      <div className="about-principle">
+        <span className="eyebrow">AN OPEN DEVELOPMENT PRINCIPLE</span>
+        <strong>Expand the ecosystem without weakening the monetary core.</strong>
+        <p>
+          VEXQAR can evolve through infrastructure, applications, contributors
+          and community participation while keeping the core economic rules
+          explicit and inspectable.
+        </p>
+      </div>
+    </section>
+  )
+}
+
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -1594,7 +1823,8 @@ function App() {
             <Route path="/security" element={<SecurityPage />} />
             <Route path="/documentation" element={<DocumentationPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
-            <Route path="/applications" element={<ApplicationsPage />} />
+              <Route path="/applications" element={<ApplicationsPage />} />
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
         </div>
       </main>
