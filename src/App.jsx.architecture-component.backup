@@ -1,0 +1,726 @@
+import { NavLink, Route, Routes } from 'react-router-dom'
+import {
+  Activity,
+  ArrowUpRight,
+  Blocks,
+  BookOpen,
+  ChevronRight,
+  CircleDollarSign,
+  Code2,
+  Cpu,
+  FileText,
+  Globe2,
+  LayoutDashboard,
+  Menu,
+  Network,
+  ShieldCheck,
+  Wallet,
+  X,
+} from 'lucide-react'
+import { useState } from 'react'
+import './App.css'
+
+const modules = [
+  {
+    name: 'Wallet',
+    description: 'Digital asset management and transaction infrastructure.',
+    status: 'BUILDING',
+    icon: Wallet,
+  },
+  {
+    name: 'DeFi',
+    description: 'Liquidity, swaps, protocol markets and programmable finance.',
+    status: 'BUILDING',
+    icon: CircleDollarSign,
+  },
+  {
+    name: 'Applications',
+    description: 'An ecosystem for VEXQAR-native and third-party applications.',
+    status: 'PLANNED',
+    icon: Blocks,
+  },
+  {
+    name: 'Compute & Intelligence',
+    description: 'Future computing and intelligent automation infrastructure.',
+    status: 'RESEARCH',
+    icon: Cpu,
+  },
+  {
+    name: 'Developer Infrastructure',
+    description: 'Tools, interfaces and resources for building on VEXQAR.',
+    status: 'PLANNED',
+    icon: Code2,
+  },
+  {
+    name: 'Network',
+    description: 'Long-term research toward broader network independence.',
+    status: 'RESEARCH',
+    icon: Network,
+  },
+]
+
+const navigation = [
+  { label: 'Overview', to: '/', icon: LayoutDashboard },
+  { label: 'VXR', to: '/vxr', icon: CircleDollarSign },
+  { label: 'Wallet', to: '/wallet', icon: Wallet },
+  { label: 'DeFi', to: '/defi', icon: Activity },
+  { label: 'Architecture', to: '/architecture', icon: Network },
+  { label: 'Security', to: '/security', icon: ShieldCheck },
+  { label: 'Documentation', to: '/documentation', icon: BookOpen },
+  { label: 'Roadmap', to: '/roadmap', icon: Globe2 },
+]
+
+function StatusBadge({ status }) {
+  return <span className={`status-badge status-${status.toLowerCase()}`}>{status}</span>
+}
+
+function Sidebar({ open, onClose }) {
+  return (
+    <aside className={`sidebar ${open ? 'sidebar-open' : ''}`}>
+      <div className="brand">
+        <div className="brand-mark">
+          <img src="/brand/vexqar-mark.svg" alt="VEXQAR" />
+        </div>
+        <div>
+          <strong>VEXQAR</strong>
+          <small>ORGANIZATION</small>
+        </div>
+      </div>
+
+      <nav className="navigation" aria-label="Platform navigation">
+        <div className="nav-label">PLATFORM</div>
+        {navigation.map(({ label, to, icon: Icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={to === '/'}
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            onClick={onClose}
+          >
+            <Icon size={17} strokeWidth={1.8} />
+            <span>{label}</span>
+          </NavLink>
+        ))}
+      </nav>
+
+      <div className="sidebar-footer">
+        <div className="company-signature">
+          <span>POWERED BY</span>
+          <strong>GOLDX TECHNOLOGIES LTD</strong>
+        </div>
+        <div className="network-indicator">
+          <span className="live-dot" />
+          <span>Polygon Mainnet</span>
+        </div>
+        <a
+          className="external-link"
+          href="https://polygonscan.com/address/0x9701053faF5E6fE5fC27662002Da4b0017026067"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Contract Explorer
+          <ArrowUpRight size={14} />
+        </a>
+      </div>
+    </aside>
+  )
+}
+
+function Topbar({ onMenu }) {
+  return (
+    <header className="topbar">
+      <button className="mobile-menu" type="button" onClick={onMenu} aria-label="Open navigation">
+        <Menu size={21} />
+      </button>
+      <div className="topbar-context">
+        <span>VEXQAR PLATFORM</span>
+        <ChevronRight size={14} />
+        <strong>Overview</strong>
+      </div>
+      <div className="topbar-right">
+        <span className="live-pill">
+          <span className="live-dot" />
+          MAINNET
+        </span>
+      </div>
+    </header>
+  )
+}
+
+function Overview() {
+  return (
+    <>
+      <section className="hero-panel">
+        <div className="hero-grid" />
+        <div className="hero-copy">
+          <div className="eyebrow">
+            <span className="eyebrow-line" />
+            PROGRAMMABLE DIGITAL INFRASTRUCTURE
+          </div>
+          <h1>
+            The foundation for a
+            <span> programmable digital economy.</span>
+          </h1>
+          <p>
+            VEXQAR ORGANIZATION develops open, modular infrastructure spanning digital assets,
+            wallets, decentralized finance, applications, computing and intelligent systems.
+          </p>
+          <div className="hero-actions">
+            <NavLink className="primary-button" to="/vxr">
+              Explore VXR
+              <ArrowUpRight size={16} />
+            </NavLink>
+            <NavLink className="secondary-button" to="/architecture">
+              View architecture
+            </NavLink>
+          </div>
+        </div>
+        <div className="hero-orbit" aria-hidden="true">
+          <div className="orbit orbit-one" />
+          <div className="orbit orbit-two" />
+          <div className="orbit-core">
+            <img src="/brand/vexqar-mark.svg" alt="" />
+          </div>
+        </div>
+      </section>
+
+      <section className="metrics-grid">
+        <article className="metric-card">
+          <span>VXR TOTAL SUPPLY</span>
+          <strong>121,000,000</strong>
+          <small>Fixed monetary supply</small>
+        </article>
+        <article className="metric-card">
+          <span>NETWORK</span>
+          <strong>POLYGON</strong>
+          <small>Current settlement environment</small>
+        </article>
+        <article className="metric-card">
+          <span>CORE STATUS</span>
+          <strong className="metric-live">LIVE</strong>
+          <small>Verified on mainnet</small>
+        </article>
+        <article className="metric-card">
+          <span>MONETARY MODEL</span>
+          <strong>18 DECIMALS</strong>
+          <small>No inflationary issuance</small>
+        </article>
+      </section>
+
+      <section className="section-block">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">ECOSYSTEM</span>
+            <h2>One platform. Multiple infrastructure layers.</h2>
+          </div>
+          <p>
+            VEXQAR is designed as a modular system. Each layer can evolve independently while
+            remaining connected to the same economic foundation.
+          </p>
+        </div>
+
+        <div className="module-grid">
+          {modules.map(({ name, description, status, icon: Icon }) => (
+            <article className="module-card" key={name}>
+              <div className="module-top">
+                <div className="module-icon">
+                  <Icon size={19} strokeWidth={1.7} />
+                </div>
+                <StatusBadge status={status} />
+              </div>
+              <h3>{name}</h3>
+              <p>{description}</p>
+              <span className="module-arrow">
+                Explore layer <ChevronRight size={15} />
+              </span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="protocol-strip">
+        <div className="protocol-icon">
+          <ShieldCheck size={22} />
+        </div>
+        <div>
+          <span className="eyebrow">MONETARY CONSTITUTION</span>
+          <h2>VXR's monetary core is intentionally simple and constrained.</h2>
+          <p>
+            Fixed supply. No post-genesis minting. No transfer tax. No discretionary monetary
+            administrator. Core contracts are designed to remain immutable.
+          </p>
+        </div>
+        <NavLink to="/security" className="text-link">
+          Security model <ArrowUpRight size={15} />
+        </NavLink>
+      </section>
+    </>
+  )
+}
+
+function PlaceholderPage({ title, eyebrow, description, icon: Icon }) {
+  return (
+    <section className="placeholder-page">
+      <div className="placeholder-icon">
+        <Icon size={25} />
+      </div>
+      <span className="eyebrow">{eyebrow}</span>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      <StatusBadge status="BUILDING" />
+    </section>
+  )
+}
+
+function VxrPage() {
+  const allocation = [
+    ['Deployment / Liquidity', '20%', '24,200,000 VXR'],
+    ['Treasury', '20%', '24,200,000 VXR'],
+    ['Economic / Community', '30%', '36,300,000 VXR'],
+    ['Founder', '15%', '18,150,000 VXR'],
+    ['Strategic Fund', '10%', '12,100,000 VXR'],
+    ['Contributors', '5%', '6,050,000 VXR'],
+  ]
+
+  const constitution = [
+    '121,000,000 VXR maximum and total supply',
+    '18 decimal places',
+    'No post-genesis minting',
+    'No inflationary issuance',
+    'No burn mechanism',
+    'No transfer tax or reflection',
+    'No blacklist, freeze or seizure authority',
+    'No upgradeability of the monetary core',
+    'Allocation and vesting are external to the core token',
+  ]
+
+  return (
+    <section className="vxr-page">
+      <div className="vxr-hero">
+        <div className="vxr-hero-copy">
+          <div className="eyebrow">
+            <span className="eyebrow-line" />
+            VXR MONETARY LAYER
+          </div>
+          <h1>
+            A constrained monetary
+            <span> foundation for VEXQAR.</span>
+          </h1>
+          <p>
+            VXR is the native economic asset of the VEXQAR ecosystem. Its monetary
+            core is intentionally simple: a fixed supply, deployed on Polygon,
+            with no discretionary monetary administrator.
+          </p>
+          <div className="vxr-actions">
+            <a
+              className="primary-button"
+              href="https://polygonscan.com/address/0x9701053faF5E6fE5fC27662002Da4b0017026067"
+              target="_blank"
+              rel="noreferrer"
+            >
+              View verified contract
+              <ArrowUpRight size={16} />
+            </a>
+            <span className="vxr-live-status">
+              <span className="live-dot" />
+              LIVE · VERIFIED
+            </span>
+          </div>
+        </div>
+
+        <div className="vxr-supply-card">
+          <span>TOTAL SUPPLY</span>
+          <strong>121,000,000</strong>
+          <small>VXR · fixed at genesis</small>
+          <div className="vxr-card-divider" />
+          <div className="vxr-card-meta">
+            <span>
+              <b>NETWORK</b>
+              Polygon Mainnet
+            </span>
+            <span>
+              <b>DECIMALS</b>
+              18
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="vxr-contract">
+        <div>
+          <span className="eyebrow">VERIFIED DEPLOYMENT</span>
+          <strong>VEXQAR · VXR</strong>
+        </div>
+        <code>0x9701053faF5E6fE5fC27662002Da4b0017026067</code>
+        <a
+          href="https://polygonscan.com/address/0x9701053faF5E6fE5fC27662002Da4b0017026067"
+          target="_blank"
+          rel="noreferrer"
+          className="text-link"
+        >
+          PolygonScan
+          <ArrowUpRight size={15} />
+        </a>
+      </div>
+
+      <div className="vxr-section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">MONETARY CONSTITUTION</span>
+            <h2>Rules enforced by the core.</h2>
+          </div>
+          <p>
+            The VXR monetary layer is deliberately narrow. Broader VEXQAR
+            infrastructure can evolve without changing the monetary core.
+          </p>
+        </div>
+
+        <div className="constitution-grid">
+          {constitution.map((item) => (
+            <div className="constitution-item" key={item}>
+              <ShieldCheck size={17} />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="vxr-section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">SUPPLY ALLOCATION</span>
+            <h2>121 million VXR. Fully accounted for.</h2>
+          </div>
+          <p>
+            Allocation pools are separated from the immutable monetary core.
+            Vesting and release rules govern distribution outside the token contract.
+          </p>
+        </div>
+
+        <div className="allocation-list">
+          {allocation.map(([name, percentage, amount]) => (
+            <div className="allocation-row" key={name}>
+              <div className="allocation-name">
+                <span>{name}</span>
+                <small>{percentage}</small>
+              </div>
+              <div className="allocation-track">
+                <span style={{ width: percentage }} />
+              </div>
+              <strong>{amount}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="vxr-bottom-grid">
+        <article className="vxr-info-card">
+          <span className="eyebrow">INITIAL CIRCULATION</span>
+          <strong>11,000,000 VXR</strong>
+          <p>
+            Target initial circulation is 11 million VXR, representing 9.09%
+            of the fixed supply. The remaining allocation is subject to its
+            documented release, vesting or strategic distribution rules.
+          </p>
+        </article>
+
+        <article className="vxr-info-card">
+          <span className="eyebrow">NETWORK ROLE</span>
+          <strong>VXR ≠ GAS</strong>
+          <p>
+            VXR is the VEXQAR economic asset. POL remains the Polygon network
+            gas asset used for transaction execution on the current settlement layer.
+          </p>
+        </article>
+      </div>
+    </section>
+  )
+}
+
+function ArchitecturePage() {
+  const layers = [
+    {
+      index: '01',
+      title: 'Economic Layer',
+      status: 'LIVE',
+      icon: CircleDollarSign,
+      description:
+        'VXR provides the fixed monetary foundation of the VEXQAR ecosystem. Its core supply and monetary rules are intentionally constrained.',
+      facts: ['121M fixed supply', '18 decimals', 'Polygon Mainnet'],
+    },
+    {
+      index: '02',
+      title: 'Settlement Layer',
+      status: 'LIVE',
+      icon: Blocks,
+      description:
+        'Polygon provides the current settlement environment for VEXQAR contracts and on-chain asset movement. POL remains the network gas asset.',
+      facts: ['Polygon chain 137', 'Verified contracts', 'On-chain settlement'],
+    },
+    {
+      index: '03',
+      title: 'Asset Infrastructure',
+      status: 'BUILDING',
+      icon: Wallet,
+      description:
+        'Wallet and asset infrastructure forms the controlled interface between users, digital assets and protocol services.',
+      facts: ['Asset custody interfaces', 'Wallet infrastructure', 'Transaction boundaries'],
+    },
+    {
+      index: '04',
+      title: 'Protocol Services',
+      status: 'BUILDING',
+      icon: Network,
+      description:
+        'Service modules connect the economic layer to applications, DeFi primitives and future protocol capabilities without changing the monetary core.',
+      facts: ['Modular services', 'Composable interfaces', 'Externalized allocation'],
+    },
+    {
+      index: '05',
+      title: 'Applications',
+      status: 'PLANNED',
+      icon: Globe2,
+      description:
+        'Application interfaces sit above the protocol layers, turning VEXQAR infrastructure into practical products and user-facing experiences.',
+      facts: ['User applications', 'Financial interfaces', 'Ecosystem access'],
+    },
+    {
+      index: '06',
+      title: 'Compute & Intelligence',
+      status: 'RESEARCH',
+      icon: Cpu,
+      description:
+        'Future compute and intelligence systems can operate above the protocol foundation, providing automation, analysis and higher-level coordination.',
+      facts: ['Compute systems', 'Intelligence layer', 'Future automation'],
+    },
+  ]
+
+  return (
+    <section className="architecture-page">
+      <div className="architecture-hero">
+        <div className="architecture-hero-copy">
+          <div className="eyebrow">
+            <span className="eyebrow-line" />
+            SYSTEM ARCHITECTURE
+          </div>
+          <h1>
+            One protocol foundation.
+            <span> Multiple layers of execution.</span>
+          </h1>
+          <p>
+            VEXQAR is designed as a modular technology stack. The monetary core
+            remains deliberately constrained while higher layers can evolve,
+            integrate and expand independently.
+          </p>
+        </div>
+
+        <div className="architecture-hero-panel">
+          <div className="architecture-node architecture-node-core">
+            <span>VEXQAR</span>
+            <small>PROTOCOL FOUNDATION</small>
+          </div>
+          <div className="architecture-orbit architecture-orbit-one" />
+          <div className="architecture-orbit architecture-orbit-two" />
+          <div className="architecture-orbit architecture-orbit-three" />
+        </div>
+      </div>
+
+      <div className="architecture-principles">
+        <article>
+          <span className="eyebrow">01 · SEPARATION</span>
+          <strong>Monetary core ≠ application layer</strong>
+          <p>
+            The VXR contract does not need to change when wallets, applications
+            or future services evolve.
+          </p>
+        </article>
+
+        <article>
+          <span className="eyebrow">02 · COMPOSABILITY</span>
+          <strong>Layers can build on the foundation</strong>
+          <p>
+            Protocol services and applications can interact with the economic
+            and settlement layers through defined interfaces.
+          </p>
+        </article>
+
+        <article>
+          <span className="eyebrow">03 · CONSTRAINTS</span>
+          <strong>Critical rules stay narrow</strong>
+          <p>
+            Supply, issuance and monetary authority are constrained at the
+            core rather than delegated to a broad administrative system.
+          </p>
+        </article>
+      </div>
+
+      <div className="architecture-section">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">STACK OVERVIEW</span>
+            <h2>VEXQAR as a layered system.</h2>
+          </div>
+          <p>
+            Each layer has a different responsibility. Current status labels
+            describe implementation maturity, not monetary authority.
+          </p>
+        </div>
+
+        <div className="architecture-stack">
+          {layers.map(({ index, title, status, icon: Icon, description, facts }) => (
+            <article className="architecture-layer" key={title}>
+              <div className="architecture-layer-index">{index}</div>
+
+              <div className="architecture-layer-icon">
+                <Icon size={20} strokeWidth={1.7} />
+              </div>
+
+              <div className="architecture-layer-main">
+                <div className="architecture-layer-heading">
+                  <div>
+                    <span className="architecture-layer-kicker">{status}</span>
+                    <h3>{title}</h3>
+                  </div>
+                  <span className={`architecture-status status-${status.toLowerCase()}`}>
+                    {status}
+                  </span>
+                </div>
+
+                <p>{description}</p>
+
+                <div className="architecture-facts">
+                  {facts.map((fact) => (
+                    <span key={fact}>{fact}</span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className="architecture-boundary">
+        <div>
+          <span className="eyebrow">ARCHITECTURAL BOUNDARY</span>
+          <h2>What can evolve without rewriting the monetary core?</h2>
+        </div>
+
+        <div className="boundary-grid">
+          <div>
+            <ShieldCheck size={18} />
+            <strong>Core monetary rules</strong>
+            <span>Constrained</span>
+          </div>
+          <div>
+            <Network size={18} />
+            <strong>Protocol services</strong>
+            <span>Composable</span>
+          </div>
+          <div>
+            <Code2 size={18} />
+            <strong>Applications</strong>
+            <span>Expandable</span>
+          </div>
+          <div>
+            <Cpu size={18} />
+            <strong>Future compute</strong>
+            <span>Independent layer</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function SecurityPage() {
+  return (
+    <PlaceholderPage
+      title="Security"
+      eyebrow="PROTOCOL SECURITY"
+      description="Security principles, authorization boundaries, contract constraints and verification records for the VEXQAR platform."
+      icon={ShieldCheck}
+    />
+  )
+}
+
+function DocumentationPage() {
+  return (
+    <PlaceholderPage
+      title="Documentation"
+      eyebrow="KNOWLEDGE BASE"
+      description="Technical documentation for VEXQAR, VXR, platform architecture, contracts, economics and developer integration."
+      icon={FileText}
+    />
+  )
+}
+
+function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  return (
+    <div className="app-shell">
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      {sidebarOpen && (
+        <button
+          className="sidebar-backdrop"
+          type="button"
+          aria-label="Close navigation"
+          onClick={() => setSidebarOpen(false)}
+        >
+          <X size={1} />
+        </button>
+      )}
+
+      <main className="main-content">
+        <Topbar onMenu={() => setSidebarOpen(true)} />
+        <div className="page-content">
+          <Routes>
+            <Route path="/" element={<Overview />} />
+            <Route
+              path="/vxr"
+              element={<VxrPage />}
+            />
+            <Route
+              path="/wallet"
+              element={
+                <PlaceholderPage
+                  title="VEXQAR Wallet"
+                  eyebrow="ASSET INFRASTRUCTURE"
+                  description="A platform-native environment for managing digital assets and interacting with the VEXQAR ecosystem."
+                  icon={Wallet}
+                />
+              }
+            />
+            <Route
+              path="/defi"
+              element={
+                <PlaceholderPage
+                  title="Decentralized Finance"
+                  eyebrow="DEFI LAYER"
+                  description="Liquidity, swaps and future programmable financial protocols built around the VEXQAR ecosystem."
+                  icon={Activity}
+                />
+              }
+            />
+            <Route path="/architecture" element={<ArchitecturePage />} />
+            <Route path="/security" element={<SecurityPage />} />
+            <Route path="/documentation" element={<DocumentationPage />} />
+            <Route
+              path="/roadmap"
+              element={
+                <PlaceholderPage
+                  title="Roadmap"
+                  eyebrow="EVOLUTION"
+                  description="A transparent progression from the live monetary foundation toward a broader decentralized application and infrastructure ecosystem."
+                  icon={Globe2}
+                />
+              }
+            />
+          </Routes>
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export default App
